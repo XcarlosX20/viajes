@@ -1,0 +1,35 @@
+extends ../layout/index
+block contenido
+    main.container.pt-5
+        h1.text-center.mb-5 #{pagina}
+        .row
+            .col-md-12
+                blockquote.text-center Lee sobre nuestros clientes y sus experiencias
+                .row.testimoniales
+                    each testimonial in testimoniales
+                        .col-md-6.col-lg-4.mb-4
+                            .card
+                                .card-body
+                                    blockquote.blockquote
+                                    p.mb-0
+                                        | #{testimonial.mensaje}
+                                    footer.blockquote-footer
+                                        | #{testimonial.nombre}    
+            .col-md-12
+                h2.text-center Agrega un testimonial
+                if(errores)
+                    each error in errores
+                        .alert.alert-danger.text-center= error.mensaje
+                .row.justify-content-center
+                    .col-md-8
+                        form(action="/testimoniales", method="POST")
+                            .form-group
+                                label(for="nombre") Nombre
+                                input(id="nombre", type="text", class="form-control", placeholder="Tu Nombre", name="nombre", value=nombre)
+                            .form-group
+                                label(for="correo") Correo
+                                input(id="correo", type="text", class="form-control", placeholder="Tu Correo electronico", name="correo", value=correo)
+                            .form-group
+                                label(for="mensaje") Mensaje
+                                textarea#mensaje(name="mensaje", class="form-control", rows="3", placeholder="Escribenos")=mensaje    
+                            input(type="submit", class="btn btn-success btn-block", value="Enviar")    
